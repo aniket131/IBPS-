@@ -34,8 +34,7 @@
                     <span>Stay calm, trust your preparation, and take one question at a time. Every mock is one step closer to your goal.</span>
                   </div>
                 </div>
-                <p class="support-note">Prepared with love and support from your husband.</p>
-              </div>
+</div>
               <div class="hero-photo-panel">
                 <div class="hero-photo-wrap">
                   <img src="assets/naina_cream.jpg" alt="Naina Dalvi" class="hero-photo">
@@ -47,7 +46,7 @@
 
           <div class="exam-meta">
             <div><span>Questions</span><strong>50</strong></div>
-            <div><span>Duration</span><strong>40 Minutes</strong></div>
+            <div><span>Duration</span><strong>60 Minutes</strong></div>
             <div><span>Correct</span><strong>+1 Mark</strong></div>
             <div><span>Wrong</span><strong>-0.25 Mark</strong></div>
           </div>
@@ -79,8 +78,7 @@
           </div>
 
           <div class="candidate-box">
-            <div class="candidate-box-grid">
-              <div class="candidate-main">
+            <div class="candidate-main">
                 <label for="candidateName">Candidate Name</label>
                 <input id="candidateName" type="text" value="Naina Dalvi" readonly />
                 <label class="consent-row">
@@ -88,10 +86,6 @@
                   <span>I have read the instructions and am ready to begin the test.</span>
                 </label>
               </div>
-              <div class="candidate-side-photo">
-                <img src="assets/naina_blue.jpg" alt="Naina Dalvi" class="candidate-side-img">
-              </div>
-            </div>
           </div>
 
           <div class="start-actions">
@@ -100,6 +94,7 @@
           </div>
         </div>
 
+        <button id="musicToggleBtn" class="music-toggle" type="button" aria-label="Toggle romantic music">♪ Romantic music</button>
         <div class="footer-note">Dedicated IBPS practice portal for Naina Dalvi • Keep going, one mock at a time ♥</div>
       </div>
     </section>
@@ -120,7 +115,7 @@
         </div>
         <div class="header-right">
           <div class="time-label">Time Remaining</div>
-          <div class="timerbox" id="timer">40:00</div>
+          <div class="timerbox" id="timer">60:00</div>
         </div>
       </header>
 
@@ -162,8 +157,8 @@
         </section>
 
         <aside class="side-panel">
-          <div class="profile-box profile-box-photo">
-            <img src="assets/naina_cream.jpg" alt="Naina Dalvi" class="profile-photo">
+          <div class="profile-box">
+            <div class="avatar">N</div>
             <div>
               <strong id="sideCandidateName">Naina Dalvi</strong>
               <span>IBPS Practice Candidate</span>
@@ -196,8 +191,8 @@
     <!-- RESULT SCREEN -->
     <section id="resultScreen" class="screen">
       <div class="result-shell">
-        <div class="result-hero result-hero-photo">
-          <img src="assets/naina_blue.jpg" alt="Naina Dalvi" class="result-photo">
+        <div class="result-hero">
+          <div class="result-icon">✓</div>
           <div>
             <span class="badge">NAINA'S TEST COMPLETED</span>
             <h1>Performance Summary</h1>
@@ -260,12 +255,9 @@
       </div>
     </div>
 
-    <!-- AUDIO -->
-    <audio id="welcomeVoice" src="assets/welcome_voice.mp3" preload="auto"></audio>
-    <audio id="startChime" src="assets/start_chime.mp3" preload="auto"></audio>
-    <audio id="submitChime" src="assets/submit_chime.mp3" preload="auto"></audio>
-    <audio id="resultChime" src="assets/result_chime.mp3" preload="auto"></audio>
-    <audio id="resultVoice" src="assets/result_voice.mp3" preload="auto"></audio>
+    <!-- LANDING PAGE MUSIC -->
+    <audio id="romanticIntro" src="assets/romantic_intro.mp3" preload="auto" loop></audio>
+    <audio id="victorySound" src="assets/victory_sound.mp3" preload="auto"></audio>
 
   </div>
 

@@ -1,5 +1,5 @@
 
-const TOTAL_TIME_SECONDS = 40 * 60;
+const TOTAL_TIME_SECONDS = 60 * 60;
 const CORRECT_MARK = 1;
 const WRONG_MARK = -0.25;
 const PRACTICE_PASS_SCORE = 30; // 60% of 50. Practice benchmark only.
@@ -56,25 +56,68 @@ const closeHistoryBtn2 = $("closeHistoryBtn2");
 const historyContent = $("historyContent");
 const clearHistoryBtn = $("clearHistoryBtn");
 
-const welcomeVoice = $("welcomeVoice");
-const startChime = $("startChime");
-const submitChime = $("submitChime");
-const resultChime = $("resultChime");
-const resultVoice = $("resultVoice");
-
 const sections = [...new Set(QUESTIONS.map(q => q.section))];
 
-function safePlay(audio, delay=0){
-  if(!audio) return;
-  const run = () => {
-    try{
-      audio.currentTime = 0;
-      const p = audio.play();
-      if (p && typeof p.catch === "function") p.catch(()=>{});
-    }catch(e){}
-  };
-  if(delay > 0) setTimeout(run, delay);
-  else run();
+const romanticIntro = $("romanticIntro");
+const victorySound = $("victorySound");
+const musicToggleBtn = $("musicToggleBtn");
+let romanticMusicStarted = false;
+
+function startRomanticMusic(){
+  if(!romanticIntro || romanticMusicStarted) return;
+  romanticIntro.volume = 0.32;
+  romanticIntro.play().then(() => {
+    romanticMusicStarted = true;
+    if(musicToggleBtn) musicToggleBtn.textContent = "♫ Music playing";
+  }).catch(() => {});
+}
+
+function stopRomanticMusic(){
+  if(!romanticIntro) return;
+  const fade = setInterval(() => {
+    if(romanticIntro.volume > 0.04){
+      romanticIntro.volume = Math.max(0, romanticIntro.volume - 0.04);
+    } else {
+      clearInterval(fade);
+      romanticIntro.pause();
+      romanticIntro.currentTime = 0;
+      romanticIntro.volume = 0.32;
+      romanticMusicStarted = false;
+    }
+  }, 70);
+}
+
+if(musicToggleBtn){
+  musicToggleBtn.addEventListener("click", () => {
+    if(!romanticIntro) return;
+    if(!romanticIntro.paused){
+      romanticIntro.pause();
+      romanticMusicStarted = false;
+      musicToggleBtn.textContent = "♪ Romantic music";
+    } else {
+      romanticMusicStarted = false;
+      startRomanticMusic();
+    }
+  });
+}
+
+// Try autoplay. If the browser blocks it, the first click/tap on the landing page starts it.
+window.addEventListener("load", () => {
+  startRomanticMusic();
+});
+
+startScreen.addEventListener("pointerdown", () => {
+  startRomanticMusic();
+}, {once:true});
+
+
+function playVictorySound(){
+  if(!victorySound) return;
+  try{
+    victorySound.currentTime = 0;
+    const p = victorySound.play();
+    if(p && typeof p.catch === "function") p.catch(()=>{});
+  }catch(e){}
 }
 
 function showScreen(screen){
@@ -257,16 +300,13 @@ startBtn.onclick = () => {
   candidateLabel.textContent = `Candidate: ${candidateName}`;
   sideCandidateName.textContent = candidateName;
 
-  safePlay(startChime);
-  safePlay(welcomeVoice, 250);
-
+  stopRomanticMusic();
   showScreen(testScreen);
   renderQuestion();
   startTimer();
 };
 
 submitBtn.onclick = () => {
-  safePlay(submitChime);
   if(confirm("Are you sure you want to submit the test now?")){
     submitTest(false);
   }
@@ -418,8 +458,7 @@ function submitTest(auto){
   copyStatus.textContent = "";
   showScreen(resultScreen);
 
-  safePlay(resultChime);
-  safePlay(resultVoice, 450);
+
 }
 
 function buildAnswerReviewHtml(attempt = latestAttempt){
